@@ -44,5 +44,5 @@ jobs:
       with:
         push: true
         tags: |
-          username/package:latest
-          username/package:${{ github.sha }}
+          ravencalamitous/test-pintu:latest
+          ravencalamitous/test-pintu:${{ github.sha }}
