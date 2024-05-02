@@ -1,4 +1,4 @@
-console.log('Hello Test Pintu!')
+console.log('Halo Test Pintu!')
 
 var moment = require('moment');
 var date = moment().format('LL');
