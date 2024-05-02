@@ -45,4 +45,3 @@ jobs:
         push: true
         tags: |
           ravencalamitous/test-pintu:latest
-          ravencalamitous/test-pintu:${{ github.sha }}
