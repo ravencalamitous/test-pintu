@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node app.js",
-    "prod": "node prod.js"
+    "start": "node prod.js"
   },
   "keywords": [],
   "author": "",
