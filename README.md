@@ -10,5 +10,5 @@
 
 4. Di kubernetes sudah dibuatkan deployment, service dan ingress sehingga nanti bisa diakses melalui public
 
-# Image yang sudah dibuat akan ditaruh di sini https://hub.docker.com/repository/docker/ravencalamitous/test-pintu/general
+#Image yang sudah dibuat akan ditaruh di sini https://hub.docker.com/repository/docker/ravencalamitous/test-pintu/general
 
