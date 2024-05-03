@@ -10,6 +10,8 @@ env:
   DOCKER_REPOSITORY: ravencalamitous
   IMAGE_NAME: test-pintu
   IMAGE_TAG: ${{ github.run_number}}
+  CLUSTER_NAME: aks-pintu-cluster
+  RESOURCE_GROUP: rg-aks-pintu-cluster
 
 jobs:
   test:
@@ -50,3 +52,35 @@ jobs:
         push: true
         tags: |
           ${{ env.DOCKER_REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+  
+  deploy:
+    name: Deploy
+    needs: [ test, build ]
+    runs-on: ubuntu-latest
+
+  steps:
+    - name: Checkout source code
+      uses: actions/checkout@v3
+
+    - name: Setup AKS Cluster
+      uses: Azure/aks-set-context@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        cluster-name: ${{ env.CLUSTER_NAME }}
+        resource-group: ${{ env.RESOURCE_GROUP }}
+
+    - name: Find and Replace 
+      uses: cschleiden/replace-tokens@v1
+      with:
+        files: '["kubernetes/*.yaml"]'
+        tokenPrefix: __
+        tokenSuffix: __
+
+    - name: Deploy to Kubernetes
+      uses: azure/k8s-deploy@v1
+      with:
+        namespace: default
+        manifests: |
+          kubernetes/deployment.yaml
+          kubernetes/ingress.yaml
+          kubernetes/service.yaml
